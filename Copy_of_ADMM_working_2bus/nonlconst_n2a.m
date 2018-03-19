@@ -1,6 +1,6 @@
 function [ c,ceq ] = nonlconst_n2a(x,zt)
-Pd1=0;
-Qd1=0;
+Pd1=0.1;
+Qd1=0.05;
 Pd2=3.00;
 Qd2=0.9861;
 Vmax=1.1;

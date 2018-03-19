@@ -14,8 +14,8 @@ Qg1min=-0.30;
 Qg2max=1.275;
 Qg2min=-1.275;
 
-Pd1=0;
-Qd1=0;
+Pd1=0.1;
+Qd1=0.05;
 Pd2=3.00;
 Qd2=0.9861;
 
@@ -44,7 +44,7 @@ b12=-1;
 %%
 zt=[1.0, 0.0, 1.1, 0.0, 1.0, 0.0];
 xt=zt;
-lam=2000*ones(1,4);
+lam=0*ones(1,4);
 % c=200;
 
 
@@ -57,7 +57,7 @@ for i=1:20
     b=[];
     Aeq=[];
     beq=[];
-    options = optimoptions('fmincon','Display','off');
+    options = optimoptions('fmincon','Display','iter');
     [x,fval,exitflag,output,lambda] = fmincon(@(x)funname_n1(x,zt,lam),x0,A,b,Aeq,beq,lb,ub,@(x)nonlconst_n1(x,zt),options);
     xt(1)=x(1);
     xt(2)=x(2);
@@ -77,7 +77,7 @@ for i=1:20
     b=[];
     Aeq=[];
     beq=[];
-    options = optimoptions('fmincon','Display','off');
+    options = optimoptions('fmincon','Display','iter');
     [x,fval,exitflag,output,lambda] = fmincon(@(x)funname_n1a(x,zt,lam),x0,A,b,Aeq,beq,lb,ub,@(x)nonlconst_n1a(x,xt),options);
     xt(5)=x(1);
     xt(6)=x(2);
@@ -95,7 +95,7 @@ for i=1:20
     b=[];
     Aeq=[];
     beq=[];
-    options = optimoptions('fmincon','Display','off');
+    options = optimoptions('fmincon','Display','iter');
     [x,fval,exitflag,output,lambda] = fmincon(@(x)funname_n2(x,xt,lam),x0,A,b,Aeq,beq,lb,ub,@(x)nonlconst_n2(x,xt),options);
 %     pf=(x(3)^2 + x(4)^2 - x(3)*vopt(1) - x(4)*vopt(2))*g12 - (x(3)*vopt(2) - x(4)*vopt(1))*b12
     zt(1)=x(1);
@@ -116,7 +116,7 @@ for i=1:20
     b=[];
     Aeq=[];
     beq=[];
-    options = optimoptions('fmincon','Display','off');
+    options = optimoptions('fmincon','Display','iter');
     [x,fval,exitflag,output,lambda] = fmincon(@(x)funname_n2a(x,xt,lam),x0,A,b,Aeq,beq,lb,ub,@(x)nonlconst_n2a(x,zt),options);
 %     pf=(x(3)^2 + x(4)^2 - x(3)*vopt(1) - x(4)*vopt(2))*g12 - (x(3)*vopt(2) - x(4)*vopt(1))*b12
     zt(3)=x(1);
