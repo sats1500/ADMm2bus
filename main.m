@@ -23,8 +23,8 @@ z12=0.00281+0.0281i;
 y12=1/z12;
 g12=real(y12);
 b12=imag(y12);
-g12=1;
-b12=-1;
+% g12=1;
+% b12=-1;
 
 %%
     %var Pg1 Qg1 Pg2 Qg2 e1 f1 e2 f2
@@ -42,12 +42,12 @@ b12=-1;
 %     pf12=(x(5)^2 + x(6)^2 - x(7)*x(5) - x(8)*x(6))*g12 - (x(5)*x(8) - x(6)*x(7))*b12
 %     pf21=(x(7)^2 + x(8)^2 - x(7)*x(5) - x(8)*x(6))*g12 - (x(7)*x(6) - x(8)*x(5))*b12
 %%
-zt=[1.0, 0.0, 1.1, 0.0, 1.09, 0.05];
-lam=0*ones(1,4);
+zt=[1.0, 0.0, 1.0, 0.0, 1.0, 0.0];
+lam=200*ones(1,4);
 % c=200;
 
 
-for i=1:100
+for i=1:500
     %var Pg1 Qg1 e1x f1x e2x f2x 
     ub=[Pg1max Qg1max Vmax*ones(1,4) ];
     lb=[Pg1min Qg1min -Vmax*ones(1,4) ];
@@ -56,7 +56,7 @@ for i=1:100
     b=[];
     Aeq=[];
     beq=[];
-    options = optimoptions('fmincon','Display','iter');
+    options = optimoptions('fmincon','Display','off');
     [x,fval,exitflag,output,lambda] = fmincon(@(x)funname_n1(x,zt,lam),x0,A,b,Aeq,beq,lb,ub,@(x)nonlconst_n1(x),options);
     xt(1)=x(1);
     xt(2)=x(2);
@@ -76,7 +76,7 @@ for i=1:100
     b=[];
     Aeq=[];
     beq=[];
-    options = optimoptions('fmincon','Display','iter');
+    options = optimoptions('fmincon','Display','off');
     [x,fval,exitflag,output,lambda] = fmincon(@(x)funname_n2(x,xt,lam),x0,A,b,Aeq,beq,lb,ub,@(x)nonlconst_n2(x),options);
 %     pf=(x(3)^2 + x(4)^2 - x(3)*vopt(1) - x(4)*vopt(2))*g12 - (x(3)*vopt(2) - x(4)*vopt(1))*b12
     zt(1)=x(1);
