@@ -1,7 +1,7 @@
 clc;
 clear all;
 global c;
-c=20000;
+c=200000;
 Vmax=1.1;
 Vmin=0.9;
 
@@ -19,12 +19,12 @@ Qd1=0.05;
 Pd2=3.00;
 Qd2=0.9861;
 
-% z12=0.00281+0.0281i;
-% y12=1/z12;
-% g12=real(y12);
-% b12=imag(y12);
-g12=1;
-b12=-1;
+z12=0.00281+0.0281i;
+y12=1/z12;
+g12=real(y12);
+b12=imag(y12);
+% g12=1;
+% b12=-1;
 
 %%
     %var Pg1 Qg1 Pg2 Qg2 e1 f1 e2 f2
@@ -42,11 +42,11 @@ b12=-1;
 %%
 zt=[1.0, 0.0, 1.1, 0.0, 1.0, 0.0];
 xt=zt;
-lam=0*ones(1,4);
+lam=50*ones(1,4);
 % c=200;
 
 
-for i=1:20
+for i=1:1000
     %var Pg1 Qg1 e1x f1x E11 F11
     ub=[Pg1max Qg1max Vmax*ones(1,2) Vmax*Vmax*ones(1,2) ];
     lb=[Pg1min Qg1min -Vmax*ones(1,2) zeros(1,2) ];
@@ -55,7 +55,7 @@ for i=1:20
     b=[];
     Aeq=[];
     beq=[];
-    options = optimoptions('fmincon','Display','iter');
+    options = optimoptions('fmincon','Display','off');
     [x,fval,exitflag,output,lambda] = fmincon(@(x)funname_n1(x,zt,lam),x0,A,b,Aeq,beq,lb,ub,@(x)nonlconst_n1(x,zt),options);
     xt(1)=x(1);
     xt(2)=x(2);
@@ -75,7 +75,7 @@ for i=1:20
     b=[];
     Aeq=[];
     beq=[];
-    options = optimoptions('fmincon','Display','iter');
+    options = optimoptions('fmincon','Display','off');
     [x,fval,exitflag,output,lambda] = fmincon(@(x)funname_n1a(x,zt,lam),x0,A,b,Aeq,beq,lb,ub,@(x)nonlconst_n1a(x,xt,zt),options);
     xt(5)=x(1);
     xt(6)=x(2);
@@ -93,7 +93,7 @@ for i=1:20
     b=[];
     Aeq=[];
     beq=[];
-    options = optimoptions('fmincon','Display','iter');
+    options = optimoptions('fmincon','Display','off');
     [x,fval,exitflag,output,lambda] = fmincon(@(x)funname_n2(x,xt,lam),x0,A,b,Aeq,beq,lb,ub,@(x)nonlconst_n2(x,xt),options);
 %     pf=(x(3)^2 + x(4)^2 - x(3)*vopt(1) - x(4)*vopt(2))*g12 - (x(3)*vopt(2) - x(4)*vopt(1))*b12
     zt(1)=x(1);
@@ -114,7 +114,7 @@ for i=1:20
     b=[];
     Aeq=[];
     beq=[];
-    options = optimoptions('fmincon','Display','iter');
+    options = optimoptions('fmincon','Display','off');
     [x,fval,exitflag,output,lambda] = fmincon(@(x)funname_n2a(x,xt,lam),x0,A,b,Aeq,beq,lb,ub,@(x)nonlconst_n2a(x,zt),options);
 %     pf=(x(3)^2 + x(4)^2 - x(3)*vopt(1) - x(4)*vopt(2))*g12 - (x(3)*vopt(2) - x(4)*vopt(1))*b12
     zt(3)=x(1);
