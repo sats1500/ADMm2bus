@@ -1,7 +1,7 @@
 clc;
 clear all;
 global c;
-c=200000;
+c=2000000;
 Vmax=1.1;
 Vmin=0.9;
 
@@ -42,7 +42,7 @@ b12=imag(y12);
 %%
 zt=[1.0, 0.0, 1.1, 0.0, 1.0, 0.0];
 xt=zt;
-lam=50*ones(1,4);
+lam=0*ones(1,4);
 % c=200;
 
 

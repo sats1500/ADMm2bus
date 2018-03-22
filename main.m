@@ -1,7 +1,7 @@
 clc;
 clear all;
 global c;
-c=20000;
+c=2000;
 Vmax=1.1;
 Vmin=0.9;
 
